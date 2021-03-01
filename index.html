@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="description" content="single page websit">
     <meta name="keywords" content="HTML, CSS, JavaScript">
@@ -20,15 +21,16 @@
       .template {
             display:none;
           }
-      
+    </style>
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
       <a class="navbar-brand" href="index.html">Land Inventory </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav" aria-controls="topnav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="collapse navbar-collapse" id="topnav">
 
         <div class="navbar-nav"> <!--Think of that as your topnav -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -54,6 +56,7 @@
           </ul>      
         </div>
       </div>
+
     </nav>
     <div id="content">
 
@@ -72,28 +75,80 @@
         </center>
       </div>
 
+      <!--The Search Page -->
+      <div class="screen" id="form">
+        <center>
+          
+              <h5 class="card-title">Search</h5>
+              <form class="d-flex" >
+                
+                <input class="form-control me-2" id="ward" type="search" placeholder="Enter Ward Number (between 1 and 50):" >
+
+              </form>
+              <button  id= "searchButton" class="btn btn-outline-success">Search</button>
+                
+            </div>
+        </center>
+      </div>
+
+      <!-- The results page -->
+      <div class="screen" id="data">
+        <center>
+        <h1>Here is your Search Result</h1>
+        </center>
+  
+            <div class="container">
+
+              <div class="row">
+                <div class="card template" >
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">Subtitle 1.</p>
+                    <p2 class="card-text2">Subtitle 2.</p2>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- The about page -->
+        <div class="screen" id="about">
+          <center>
+                  <p class="card-text"><h3>Hellooo My World!</h3><br><h5>I am Nijat, and I am one of the studets at University of Illinois at Chicago. <br>I am majoring in computer science, consentrating on software engineering and minoring in Information Technology. <br>For this project, I built a Single Page App that allows users to search for Chicago City-Owned Land Inventory data. <br> Thanks for visiting.</h5></p>
+          </center>
+        </div>
+    </div>
+
     
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <!-- make the screens visible-->
+    <!-- Here is where the typescript is going to be, that makes the screens visible-->
       <script>
+        // This will make sure that the home screen is always being shown 
         document.querySelector("#home").style.display= "block";
 
-        let navAnchors= document.querySelectorAll("div#navbarNavAltMarkup a")
+        let navAnchors= document.querySelectorAll("div#topnav a")
 
         navAnchors.forEach( (anchor) => {
           anchor.addEventListener("click", (event) => {
 
+            //hides all the screens first
             document.querySelectorAll(".screen").forEach( (screen) => {
               screen.style.display = "none";
-            }); 
+            });
+            //read data screen attribute  
             let screen = event.target.getAttribute("data-screen");
 
+            //find relevant screen
             let targetScreen= document.querySelector("#" + screen);
+
+            //show it 
             targetScreen.style.display= "block";
           })
         })
       </script>
-
+      
   </body>
 </html>
