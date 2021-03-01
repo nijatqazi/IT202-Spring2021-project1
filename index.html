@@ -1,3 +1,7 @@
+<!-- Project: Single page app
+     Author: Nijat Qazi
+     University of Illinois at Chicago, spring 2021  -->
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,18 +26,18 @@
             display:none;
           }
     </style>
-      
-      </style>
     <!--this is for the map page-->
     <style type="text/css">
               #map {
                 height: 500px;
-                width: 100%;              
+                width: 100%;
               }
       </style>
-
+      <!-- hiding the template  -->
   </head>
   <body>
+
+    <!-- Navigation bar section -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
       <a class="navbar-brand" href="index.html">Land Inventory </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav" aria-controls="topnav" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +45,7 @@
       </button>
       <div class="collapse navbar-collapse" id="topnav">
 
-        <div class="navbar-nav"> <!--Think of that as your topnav -->
+        <div class="navbar-nav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li>
                   <a data-screen="home" class="nav-item nav-link btn btn-primary" >Home</a>
@@ -65,9 +69,8 @@
           </ul>      
         </div>
       </div>
-      <!-- the original screens where placed here-->
     </nav>
-    <!--Here is where I am going to put the screens -->
+    
     <div id="content">
 
     <!-- The Home page -->
@@ -120,8 +123,11 @@
             </div>
           </div>
         </div>
+        <!--Here is where  the cards are populated-->
       </div>
-<!-- The Map page -->
+
+
+      <!-- The Map page -->
       <div class="screen" id="map">
 
             <script>
@@ -137,10 +143,11 @@
 
       </div> 
 
+
       <!-- The about page -->
         <div class="screen" id="about">
           <center>
-                  <p class="card-text"><h3>Hellooo My World!</h3><br><h5>I am Nijat Qazi, and I am one of the studets at University of Illinois at Chicago. <br>I am majoring in computer science, consentrating on software engineering and minoring in Information Technology. <br>For this project, I built a Single Page App that allows users to search for Chicago City-Owned Land Inventory data. <br> Thanks for visiting.</h5></p>
+                  <p class="card-text"><h3>Hellooo My World!</h3><br><h5>I am Nijat, and I am one of the studets at University of Illinois at Chicago. <br>I am majoring in computer science, consentrating on software engineering and minoring in Information Technology. <br>For this project, I built a Single Page App that allows users to search for Chicago City-Owned Land Inventory data. <br> Thanks for visiting.</h5></p>
           </center>
         </div>
     </div>
@@ -148,21 +155,22 @@
     
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-   
       <script>
-        document.querySelector("#home").style.display= "block";
+        // visibal home screen
+            document.querySelector("#home").style.display= "block";
 
-        let navAnchors= document.querySelectorAll("div#topnav a")
+            let navAnchors= document.querySelectorAll("div#topnav a")
 
-        navAnchors.forEach( (anchor) => {
-          anchor.addEventListener("click", (event) => {
+            navAnchors.forEach( (anchor) => {
+              anchor.addEventListener("click", (event) => {
 
+            //hides all the screens
             document.querySelectorAll(".screen").forEach( (screen) => {
               screen.style.display = "none";
             });
-  
             let screen = event.target.getAttribute("data-screen");
 
+            //find relevant screen
             let targetScreen= document.querySelector("#" + screen);
 
             targetScreen.style.display= "block";
@@ -170,37 +178,42 @@
         })
       </script>
       
+        <!--using the fetch url method-->
         <script>
-          let  url= "https://data.cityofchicago.org/resource/aksk-kvfp.json"
+              let  url= "https://data.cityofchicago.org/resource/aksk-kvfp.json"
 
-          let template= document.querySelector(".template");
+              let template= document.querySelector(".template");
 
-          document.querySelector("#searchButton").addEventListener( "click", (event) => {
-
-            document.querySelectorAll(".ward_card").forEach( (node) => {
+              //This is for the search box method
+                document.querySelector("#searchButton").addEventListener( "click", (event) => {
+      
+                document.querySelectorAll(".ward_card").forEach( (node) => { 
               node.remove()
             });
 
             let type= document.querySelector("input").value;
  
             let url = "https://data.cityofchicago.org/resource/aksk-kvfp.json" + "?ward=" + type;
-        
 
         fetch (url)
           .then ( ( response ) => { return response.json() })
           .then ( (data) => {
-        
             data.forEach( (item) => {
-            
               let clone=template.cloneNode(true);
+              //add the name of the card
               let h5 = clone.querySelector("h5.card-title")
               h5.innerText = item.community_area_name;
-              let h6 = clone.querySelector("h6.card-subtitle")
+              //pin the card
+              let h6 = clone.querySelector("h6.card-subtitle")//I did a change here
               h6.innerText= item.pin;
+              //address of the card
               let p =clone.querySelector("p.card-text")
-              p.innerText=item.address;    
+              p.innerText=item.address;
+    
               let p2 =clone.querySelector("p2.card-text2")
               p2.innerText=item.sq_ft;
+
+
               clone.classList.remove("template");
               clone.classList.add("ward_card")
               template.parentElement.append(clone);
@@ -210,9 +223,8 @@
           })
           });
 
-        
-
         </script>
+
         <script src="https://maps.googleapis.com/maps/api/js?AIzaSyDEINctb0LCHgPzlG3rhZog2KmsgnihBOc&callback=initMap" async></script>
   </body>
 </html>
