@@ -22,6 +22,15 @@
             display:none;
           }
     </style>
+      
+      </style>
+    <!--this is for the map page-->
+    <style type="text/css">
+              #map {
+                height: 500px;
+                width: 100%;              
+              }
+      </style>
 
   </head>
   <body>
@@ -112,7 +121,21 @@
           </div>
         </div>
       </div>
+<!-- The Map page -->
+      <div class="screen" id="map">
 
+            <script>
+              let map;
+
+              function initMap() {
+                map = new google.maps.Map(document.getElementById("map"), {
+                  center: { lat: 41.8781, lng: -87.6298 },
+                  zoom: 8,
+                });
+              }
+            </script>
+
+      </div> 
 
       <!-- The about page -->
         <div class="screen" id="about">
@@ -190,6 +213,6 @@
         
 
         </script>
-
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWWskV-nuUaBsBTDe78As2NoH98_73E3E&callback=initMap" async></script>
   </body>
 </html>
